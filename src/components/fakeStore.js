@@ -1,15 +1,21 @@
 import { connect } from "react-redux";
-import { compose, lifecycle, withHandlers } from "recompose";
+import { Link, useNavigate } from "react-router-dom";
+import { compose, lifecycle, withHandlers, withProps } from "recompose";
 
 const FakeStore = ({ data }) => {
-  console.log(data);
   return (
     <div>
       <h1>Store</h1>
       <div>
-        {data.map((e) => (
-          <h3>{e.name.firstname}</h3>
-        ))}
+        {data?.length > 0 ? (
+          data.map((e) => (
+            <div key={e.id}>
+              <Link to={`/${e.id}`}>{e.name.firstname}</Link>
+            </div>
+          ))
+        ) : (
+          <h2>Loading...</h2>
+        )}
       </div>
     </div>
   );
